@@ -1,65 +1,60 @@
-var users = [
+var books = [
   {
     id: 1,
-    name: 'Bob',
-    author: 'Manila',
-    age: 27,
+    name: 'The theory about everything',
+    author: 'Stephen Hawking',
   },
   {
     id: 2,
-    name: 'Harry',
-    author: 'Baguio',
-    age: 32,
+    name: 'A Brief History of Time',
+    author: 'Stephen Hawking',
   },
 ];
 
-$.each(users, function (i, user) {
-  appendToUsrTable(user);
+$.each(books, function (i, book) {
+  appendToBookTable(book);
 });
 
 $('form').submit(function (e) {
   e.preventDefault();
 });
 
-$('form#addUser').submit(function () {
-  var user = {};
+$('form#addBook').submit(function () {
+  var book = {};
   var nameInput = $('input[name="name"]').val().trim();
   var authorInput = $('input[name="author"]').val().trim();
-  var ageInput = $('input[name="age"]').val().trim();
-  if (nameInput && authorInput && ageInput) {
+  if (nameInput && authorInput) {
     $(this)
       .serializeArray()
       .map(function (data) {
-        user[data.name] = data.value;
+        book[data.name] = data.value;
       });
-    var lastUser = users[Object.keys(users).sort().pop()];
-    user.id = lastUser.id + 1;
+    var lastBook = books[Object.keys(books).sort().pop()];
+    book.id = lastBook.id + 1;
 
-    addUser(user);
+    addBook(book);
   } else {
     alert('All fields must have a valid value.');
   }
 });
 
-function addUser(user) {
-  users.push(user);
-  appendToUsrTable(user);
+function addBook(book) {
+  books.push(book);
+  appendToBookTable(book);
 }
 
-function editUser(id) {
-  users.forEach(function (user, i) {
-    if (user.id == id) {
+function editBook(id) {
+  books.forEach(function (book, i) {
+    if (book.id == id) {
       $('.modal-body').empty().append(`
-                <form id="updateUser" action="">
+                <form id="updateBook" action="">
                     <label for="name">Name</label>
-                    <input class="form-control" type="text" name="name" value="${user.name}"/>
+                    <input class="form-control" type="text" name="name" value="${book.name}"/>
                     <label for="author">Author</label>
-                    <input class="form-control" type="text" name="author" value="${user.author}"/>
-                    <label for="age">Age</label>
-                    <input class="form-control" type="number" name="age" value="${user.age}" min=10 max=100/>
+                    <input class="form-control" type="text" name="author" value="${book.author}"/>
             `);
       $('.modal-footer').empty().append(`
-                    <button type="button" type="submit" class="btn btn-primary" onClick="updateUser(${id})">Save changes</button>
+                    <button type="button" type="submit" class="btn btn-primary" onClick="updateBook(${id})">Save changes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </form>
             `);
@@ -67,49 +62,45 @@ function editUser(id) {
   });
 }
 
-function deleteUser(id) {
-  var action = confirm('Are you sure you want to delete this user?');
-  var msg = 'User deleted successfully!';
-  users.forEach(function (user, i) {
-    if (user.id == id && action != false) {
-      users.splice(i, 1);
-      $('#userTable #user-' + user.id).remove();
+function deleteBook(id) {
+  var action = confirm('Are you sure you want to delete this book?');
+  var msg = 'Book deleted successfully!';
+  books.forEach(function (book, i) {
+    if (book.id == id && action != false) {
+      books.splice(i, 1);
+      $('#bookTable #book-' + book.id).remove();
       flashMessage(msg);
     }
   });
 }
 
-function updateUser(id) {
-  var msg = 'User updated successfully!';
-  var user = {};
-  user.id = id;
-  users.forEach(function (user, i) {
-    if (user.id == id) {
-      $('#updateUser')
+function updateBook(id) {
+  var msg = 'Book updated successfully!';
+  var book = {};
+  book.id = id;
+  books.forEach(function (book, i) {
+    if (book.id == id) {
+      $('#updateBook')
         .children('input')
         .each(function () {
           var value = $(this).val();
-          var attr = $(this).attr('name');
-          if (attr == 'name') {
-            user.name = value;
-          } else if (attr == 'author') {
-            user.author = value;
-          } else if (attr == 'age') {
-            user.age = value;
+          var attribute = $(this).attribute('name');
+          if (attribute == 'name') {
+            book.name = value;
+          } else if (attribute == 'author') {
+            book.author = value;
           }
         });
-      users.splice(i, 1);
-      users.splice(user.id - 1, 0, user);
-      $('#userTable #user-' + user.id)
-        .children('.userData')
+      books.splice(i, 1);
+      books.splice(book.id - 1, 0, book);
+      $('#bookTable #book-' + book.id)
+        .children('.bookData')
         .each(function () {
-          var attr = $(this).attr('name');
-          if (attr == 'name') {
-            $(this).text(user.name);
-          } else if (attr == 'author') {
-            $(this).text(user.author);
-          } else {
-            $(this).text(user.age);
+          var attribute = $(this).attribute('name');
+          if (attribute == 'name') {
+            $(this).text(book.name);
+          } else if (attribute == 'author') {
+            $(this).text(book.author);
           }
         });
       $('.modal').modal('toggle');
@@ -125,17 +116,16 @@ function flashMessage(msg) {
     `);
 }
 
-function appendToUsrTable(user) {
-  $('#userTable > tbody:last-child').append(`
-        <tr id="user-${user.id}">
-            <td class="userData" name="name">${user.name}</td>
-            '<td class="userData" name="author">${user.author}</td>
-            '<td id="tdAge" class="userData" name="age">${user.age}</td>
+function appendToBookTable(book) {
+  $('#bookTable > tbody:last-child').append(`
+        <tr id="book-${book.id}">
+            <td class="bookData" name="name">${book.name}</td>
+            '<td class="bookData" name="author">${book.author}</td>
             '<td align="center">
-                <button class="btn btn-success form-control" onClick="editUser(${user.id})" data-toggle="modal" data-target="#myModal")">EDIT</button>
+                <button class="btn btn-success form-control" onClick="editBook(${book.id})" data-toggle="modal" data-target="#myModal")">EDIT</button>
             </td>
             <td align="center">
-                <button class="btn btn-danger form-control" onClick="deleteUser(${user.id})">DELETE</button>
+                <button class="btn btn-danger form-control" onClick="deleteBook(${book.id})">DELETE</button>
             </td>
         </tr>
     `);

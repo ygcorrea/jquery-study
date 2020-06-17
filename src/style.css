@@ -1,6 +1,6 @@
 body {
   background: #2c3e50;
-  color: rgb(255, 255, 255);
+  color: white;
   font-family: monospace;
 }
 input,
@@ -26,6 +26,7 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
 h3 {
   background-color: #333;
   padding: 12px;
@@ -58,10 +59,4 @@ h3 {
 .btn {
   font-weight: bolder;
   letter-spacing: 0.2em;
-}
-.container {
-  background-color: wheat;
-  width: auto;
-  height: 600px;
-  border-radius: 25px;
 }
