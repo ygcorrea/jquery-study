@@ -1,5 +1,5 @@
 body {
-  background: #2c3e50;
+  background: #3d8105;
   color: white;
   font-family: monospace;
 }
@@ -9,7 +9,7 @@ input,
 }
 .table-striped > tbody > tr:nth-child(2n + 1) > td,
 .table-striped > tbody > tr:nth-child(2n + 1) > th {
-  background-color: #34495e;
+  background-color: #345e34;
 }
 .row .alert {
   margin-top: 25px;
