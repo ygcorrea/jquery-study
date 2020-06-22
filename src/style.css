@@ -1,6 +1,6 @@
 body {
-  background: #3d8105;
-  color: white;
+  background: #8ca570;
+  color: black;
   font-family: monospace;
 }
 input,
@@ -9,7 +9,7 @@ input,
 }
 .table-striped > tbody > tr:nth-child(2n + 1) > td,
 .table-striped > tbody > tr:nth-child(2n + 1) > th {
-  background-color: #345e34;
+  background-color: #548054;
 }
 .row .alert {
   margin-top: 25px;
@@ -25,10 +25,12 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #000;
+  border-bottom: 1px dotted #000;
 }
 
 h3 {
-  background-color: #333;
+  background-color: rgb(30, 51, 6);
   padding: 12px;
   border-top-right-radius: 20px;
   font-weight: bolder;
